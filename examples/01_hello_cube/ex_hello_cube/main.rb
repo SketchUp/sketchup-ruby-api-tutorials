@@ -9,7 +9,9 @@ module Examples
     def self.create_cube
       model = Sketchup.active_model
       model.start_operation('Create Cube', true)
+      group = model.active_entities.add_group
       entities = group.entities
+      points = [
         Geom::Point3d.new(0,   0,   0),
         Geom::Point3d.new(1.m, 0,   0),
         Geom::Point3d.new(1.m, 1.m, 0),
