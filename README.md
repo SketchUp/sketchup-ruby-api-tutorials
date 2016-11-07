@@ -12,7 +12,7 @@ functioning SketchUp Extensions, complete with comments and helpful hints.
 Hopefully you can use these examples however you want. The Example code is
 available 3 different ways. You can:
 
-1. Read the [Example Extensions tutorials on the SketchUp Developer website](http://stg.developer.sketchup.com/en/content/tutorials).
+1. Read the [Example Extensions tutorials on the SketchUp Developer website](http://developer.sketchup.com/en/content/tutorials).
    Read through the step by step tutorial of the code and comments and try to
    follow along by building the same extension yourself. Use these examples to
    help learn better SketchUp API usage.
