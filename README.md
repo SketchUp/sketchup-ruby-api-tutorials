@@ -24,7 +24,7 @@ available 3 different ways. You can:
    on. You can copy and paste chunks of code easily from the non-commented
    samples without the verbose comments getting in the way.
 
-Depending what you are trying to achieve, there is a method to get their easily.
+Depending what you are trying to achieve, there is a method to get there easily.
 Just get all the code at once, and pull out what you need. Or follow along line
 by line, tutorial style. The end goal is for everyone to gain access to solid
 code examples that help improve their SketchUp extensions.
