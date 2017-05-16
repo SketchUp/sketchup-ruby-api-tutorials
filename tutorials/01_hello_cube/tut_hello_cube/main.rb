@@ -9,7 +9,7 @@ module Examples
     # This method creates a simple cube inside of a group in the model.
     def self.create_cube
       # We need a reference to the currently active model. The SketchUp API
-      # currently only let you work on the active model. Under Windows there
+      # currently only lets you work on the active model. Under Windows there
       # will be only one model open at a time, but under OS X there might be
       # multiple models open.
       # 
@@ -19,10 +19,10 @@ module Examples
 
       # Whenever you make changes to the model you must take care to use
       # `model.start_operation` and `model.commit_operation` to wrap everything
-      # into a single undo step. Otherwise the user risk not being able to undo
-      # everything and loose work.
+      # into a single undo step. Otherwise the user risks not being able to
+      # undo everything and she may loose work.
       # 
-      # Making sure your model changes is undoable in a single undo step is a
+      # Making sure your model changes are undoable in a single undo step is a
       # requirement of the Extension Warehouse submission quality checks.
       # 
       # Note that the first argument name is a string that will be appended to
@@ -30,10 +30,10 @@ module Examples
       # the users can understand.
       model.start_operation('Create Cube', true)
 
-      # Creating a group via the API is slightly different than via the UI.
-      # Via the UI you create the faces first, then group them. But with the
-      # API you create the group first and then add it's content directly into
-      # it.
+      # Creating a group via the API is slightly different from creating a
+      # group via the UI.  Via the UI you create the faces first, then group
+      # them. But with the API you create the group first and then add its
+      # content directly to the group.
       group = model.active_entities.add_group
       entities = group.entities
 

@@ -8,7 +8,7 @@
 # 
 # * Register a SketchupExtension instance in the root .rb file.
 # 
-# * Do not load anything else in the root .rb file - it should _only_ to
+# * Do not load anything else in the root .rb file - it should _only_ do
 #   registration.
 #   
 # * Confine all code for the extension into its own namespace (module).
@@ -41,10 +41,10 @@ require 'extensions.rb'
 module Examples
   module HelloCube
 
-    # The use of `file_loaded?` here is to prevent the extension being
-    # registered multiple times. This can happen for various reasons where the
-    # file is attempted reloaded - either by development debugging or extension
-    # updates etc.
+    # The use of `file_loaded?` here is to prevent the extension from being
+    # registered multiple times. This can happen for a number of reasons when
+    # the file is reloaded - either when debugging during development or
+    # extension updates etc.
     # 
     # The `__FILE__` constant is a "magic" Ruby constant that returns a string
     # with the path to the current file. You don't have to use this constant
@@ -55,7 +55,7 @@ module Examples
       # Here we define the extension. The two arguments is the extension name
       # and the file that should be loaded when the extension is enabled.
       # 
-      # Note that the file loaded (tut_hello_world/main) must be in a folder
+      # Note that the file loaded (tut_hello_cube/main) must be in a folder
       # named with the same base name as this root file.
       # 
       # Another thing to notice is that we omitted the .rb file extension and
@@ -65,7 +65,7 @@ module Examples
       ex = SketchupExtension.new('Hello Cube', 'tut_hello_cube/main')
 
       # Next we add some information to the extension. This isn't required, but
-      # highly recommended as it helps the user when managing it's installed
+      # highly recommended as it helps the user when managing her installed
       # extensions.
       ex.description = 'SketchUp Ruby API example creating a cube.'
       ex.version     = '1.0.0'
@@ -74,8 +74,8 @@ module Examples
 
       # Finally we tell SketchUp to register this extension. Remember to always
       # set the second argument to true - this tells SketchUp to load the
-      # extension by default. Otherwise the user have to manually enable it
-      # after installing.
+      # extension by default. Otherwise the user has to manually enable the
+      # extension after installation.
       Sketchup.register_extension(ex, true)
 
       # This is needed for the load guard to prevent the extension being
