@@ -44,3 +44,9 @@ That snippet will take care of loading the examples and tutorials.
 
 If you are working on you own examples you want to contribute back via a Pull
 Request you can use `Examples.reload` while you work to reload all the files.
+
+# Development Guides
+
+Also make sure to check out the [Wiki section](https://github.com/SketchUp/sketchup-ruby-api-tutorials/wiki)
+for guides on how to setup your project for extension development, IDE setup
+and more.
