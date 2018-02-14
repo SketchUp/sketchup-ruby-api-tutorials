@@ -4,16 +4,16 @@
 module Examples
 
   # Finds and returns the filename for each of the root .rb files in the
-  # tutorials folder.
+  # examples folder.
   #
   # @yield [String] filename
   #
   # @return [Array<String>] files
   def self.rb_files(include_subfolders = false)
-    tutorials_path = File.join(__dir__, 'tutorials')
+    examples_path = File.join(__dir__, 'examples')
     folders = include_subfolders ? '**' : '*'
-    tutorials_pattern = File.join(tutorials_path, folders, '*.rb')
-    Dir.glob(tutorials_pattern).each { |filename|
+    examples_pattern = File.join(examples_path, folders, '*.rb')
+    Dir.glob(examples_pattern).each { |filename|
       yield filename
     }
   end
@@ -33,11 +33,12 @@ module Examples
   # @return [Integer] Number of files reloaded.
   def self.reload
     self.mute_warnings do
+      load __FILE__
       files = self.rb_files(true) { |filename|
         load filename
       }
       puts "Reloaded #{files.size} files" if $VERBOSE
-      files.size
+      files.size + 1
     end
   end
 
