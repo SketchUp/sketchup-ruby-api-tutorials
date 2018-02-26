@@ -103,9 +103,7 @@ module Examples
       end
 
       def getExtents
-        bb = Geom::BoundingBox.new
-        bb.add(picked_points)
-        bb
+        sphere_bounds
       end
 
       private
@@ -164,10 +162,29 @@ module Examples
       def draw_preview(view)
         points = picked_points
         return unless points.size == 2
+        draw_picked_points(view, points)
+        draw_sphere(view, points)
+      end
+
+      def draw_picked_points(view, points)
         view.set_color_from_line(*points)
         view.line_width = 1
         view.line_stipple = ''
         view.draw(GL_LINES, points)
+      end
+
+      def draw_sphere(view, points)
+        origin, tangent = points
+        x_axis = origin.vector_to(tangent)
+        return unless x_axis.valid?
+        radius = x_axis.length
+        loops = sphere_preview_points(origin, x_axis, radius, @num_segments)
+        view.drawing_color = 'purple'
+        view.line_width = 1
+        view.line_stipple = ''
+        loops.each { |loop|
+          view.draw(GL_LINE_LOOP, loop)
+        }
       end
 
       def create_sphere
@@ -192,6 +209,64 @@ module Examples
         model.commit_operation
         # Prepare to allow new input for new spheres.
         reset_tool
+      end
+
+      def sphere_bounds
+        bb = Geom::BoundingBox.new
+        if @picked_first_ip.valid? && @mouse_ip.valid?
+          origin = @picked_first_ip.position
+          x_axis = origin.vector_to(@mouse_ip)
+          return bb unless x_axis.valid?
+          y_axis = x_axis.axes.x
+          y_axis.length = x_axis.length
+          z_axis = x_axis.axes.y
+          z_axis.length = x_axis.length
+          bb.add(origin.offset(x_axis))
+          bb.add(origin.offset(x_axis.reverse))
+          bb.add(origin.offset(y_axis))
+          bb.add(origin.offset(y_axis.reverse))
+          bb.add(origin.offset(z_axis))
+          bb.add(origin.offset(z_axis.reverse))
+        end
+        bb
+      end
+
+      def sphere_preview_points(origin, x_axis, radius, segments = 24)
+        circle = circle3d(X_AXIS, radius, segments)
+        tr_origin = Geom::Transformation.new(origin)
+        rotation_step = 360.degrees / segments
+        # Longitude lines (Vertical)
+        loops = segments.times.map { |i|
+          angle = rotation_step * i
+          tr_rotation = Geom::Transformation.rotation(ORIGIN, Z_AXIS, angle)
+          tr = tr_origin * tr_rotation
+          circle.map { |point| point.transform(tr) }
+        }
+        # Latitude lines (Horizontal)
+        latitudes = []
+        segments.times { |i|
+          latitudes << loops.map { |loop| loop[i] }
+        }
+        loops.concat(latitudes)
+        loops
+      end
+
+      def circle3d(normal, radius, segments = 24)
+        points = circle2d(radius, segments = 24)
+        tr = Geom::Transformation.new(ORIGIN, normal)
+        points.map { |point| point.transform(tr) }
+      end
+
+      def circle2d(radius, segments = 24)
+        segment_angle = 360.degrees / segments
+        arc = []
+        (0..segments).each { |i|
+          angle = segment_angle * i
+          x = radius * Math.cos(angle)
+          y = radius * Math.sin(angle)
+          arc << Geom::Point3d.new(x, y, 0)
+        }
+        arc
       end
 
     end # class SphereTool
