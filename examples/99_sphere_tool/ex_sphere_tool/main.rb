@@ -232,7 +232,7 @@ module Examples
       end
 
       def sphere_preview_points(origin, x_axis, radius, segments = 24)
-        circle = circle3d(X_AXIS, radius, segments)
+        circle = circle3d(x_axis, radius, segments)
         tr_origin = Geom::Transformation.new(origin)
         rotation_step = 360.degrees / segments
         # Longitude lines (Vertical)
