@@ -9,6 +9,7 @@ module Examples
     class SphereTool
 
       def activate
+        @num_segments = 24
         @mouse_ip = Sketchup::InputPoint.new
         @picked_first_ip = Sketchup::InputPoint.new
         update_ui
@@ -54,6 +55,12 @@ module Examples
       end
 
       def onUserText(text, view)
+        # Check if it's adjustments to number of segments.
+        if text.end_with?('s')
+          on_segment_change_input(text)
+          update_ui
+          return
+        end
         # Ensure that the center of the sphere has been picked.
         return unless picked_first_point? && @mouse_ip.valid?
         # Try to parse the user input - this might fail, so rescue from errors.
@@ -120,6 +127,21 @@ module Examples
         update_ui
       end
 
+      def on_segment_change_input(text)
+        segments = text.to_i # .to_i will strip out the trailing "s".
+        valid_range = (3..999) # Matching SketchUp 2018 for circle segments.
+        if valid_range.include?(segments)
+          @num_segments = segments
+          true
+        else
+          min = valid_range.min
+          mmax = valid_range.mmax
+          message = "Curve segments must be in the range from #{min} to #{max}"
+          UI.messagebox(message)
+          false
+        end
+      end
+
       def picked_first_point?
         @picked_first_ip.valid?
       end
@@ -156,7 +178,7 @@ module Examples
         group = model.active_entities.add_group
         # Create a filled circle which later will be revolved around itself to
         # create a sphere.
-        num_segments = 48
+        num_segments = @num_segments
         circle = group.entities.add_circle(origin, X_AXIS, radius, num_segments)
         face = group.entities.add_face(circle)
         face.reverse!
