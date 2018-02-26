@@ -1,0 +1,17 @@
+{
+  // See https://go.microsoft.com/fwlink/?LinkId=733558
+  // for the documentation about the tasks.json format
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Debug in SketchUp 2018",
+      "type": "shell",
+      "command": "skippy",
+      "args": [
+        "sketchup:debug",
+        "2018"
+      ],
+      "problemMatcher": []
+    }
+  ]
+}
