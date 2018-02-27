@@ -1,16 +1,16 @@
-# Copyright 2016 Trimble Navigation Limited
+# Copyright 2016 Trimble Inc
 # Licensed under the MIT license
 
 # This demonstrate the required pattern for Extensions to be accepted to the
 # Extension Warehouse.
-# 
+#
 # Key requirements:
-# 
+#
 # * Register a SketchupExtension instance in the root .rb file.
-# 
+#
 # * Do not load anything else in the root .rb file - it should _only_ do
 #   registration.
-#   
+#
 # * Confine all code for the extension into its own namespace (module).
 #   This means that one should never use global variables, global constants
 #   or global methods. It also means that you should not modify the Ruby API or
@@ -18,24 +18,24 @@
 
 # These are needed because we use some methods defined in these files which are
 # not automatically loaded by SketchUp.
-# 
+#
 # * sketchup.rb is needed for `file_loaded?` and `file_loaded`.
-# 
+#
 # * extensions.rb is needed for the `SketchupExtension` class.
 require 'sketchup.rb'
 require 'extensions.rb'
 
 # In order to make sure your extension doesn't affect other installed extensions
 # you need to put all your extension code within your own module.
-# 
+#
 # We recommend a pattern similar to this for best flexibility:
-# 
+#
 #   module PublisherName
 #     module ExtensionName
 #       # ...
 #     end
 #   end
-# 
+#
 # This allows you to put all your extensions into a single module representing
 # you as developer/company.
 module Examples
@@ -45,7 +45,7 @@ module Examples
     # registered multiple times. This can happen for a number of reasons when
     # the file is reloaded - either when debugging during development or
     # extension updates etc.
-    # 
+    #
     # The `__FILE__` constant is a "magic" Ruby constant that returns a string
     # with the path to the current file. You don't have to use this constant
     # with `file_loaded?` - you can use any unique string to represent this
@@ -54,10 +54,10 @@ module Examples
 
       # Here we define the extension. The two arguments is the extension name
       # and the file that should be loaded when the extension is enabled.
-      # 
+      #
       # Note that the file loaded (tut_hello_cube/main) must be in a folder
       # named with the same base name as this root file.
-      # 
+      #
       # Another thing to notice is that we omitted the .rb file extension and
       # wrote `tut_hello_world/main` instead of `tut_hello_world/main.rb`.
       # SketchUp is smart enough to find the file regardless and this is

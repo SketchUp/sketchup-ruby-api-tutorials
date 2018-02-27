@@ -1,4 +1,4 @@
-# Copyright 2016 Trimble Navigation Limited
+# Copyright 2016 Trimble Inc
 # Licensed under the MIT license
 
 require 'sketchup.rb'
@@ -12,7 +12,7 @@ module Examples
       # currently only lets you work on the active model. Under Windows there
       # will be only one model open at a time, but under OS X there might be
       # multiple models open.
-      # 
+      #
       # Beware that if there is no model open under OS X then `active_model`
       # will return nil. In this example we ignore that for simplicity.
       model = Sketchup.active_model
@@ -21,10 +21,10 @@ module Examples
       # `model.start_operation` and `model.commit_operation` to wrap everything
       # into a single undo step. Otherwise the user risks not being able to
       # undo everything and she may loose work.
-      # 
+      #
       # Making sure your model changes are undoable in a single undo step is a
       # requirement of the Extension Warehouse submission quality checks.
-      # 
+      #
       # Note that the first argument name is a string that will be appended to
       # the Edit > Undo menu - so make sure you name your operations something
       # the users can understand.
@@ -40,7 +40,7 @@ module Examples
       # Here we define a set of 3d points to create a 1x1m face. Note that the
       # internal unit in SketchUp is inches. This means that regardless of the
       # model unit settings the 3d data is always stored in inches.
-      # 
+      #
       # In order to make it easier work with lengths the Numeric class has
       # been extended with some utility methods that let us write stuff like
       # `1.m` to represent a meter instead of `39.37007874015748`.
@@ -53,7 +53,7 @@ module Examples
 
       # We pass the points to the `add_face` method and keep the returned
       # reference to the face as we want to keep working with it.
-      # 
+      #
       # Note that normally the orientation (its normal) is a result of the order
       # of the 3d points you use to create it. The exception is when you create
       # a face on the ground plane (all points with z == 0) then it will always

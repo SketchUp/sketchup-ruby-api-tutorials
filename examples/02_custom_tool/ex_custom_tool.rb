@@ -1,4 +1,4 @@
-# Copyright 2016 Trimble Navigation Limited
+# Copyright 2016 Trimble Inc
 # Licensed under the MIT license
 
 # This demonstrate how to create a custom Ruby tool that lets the user pick

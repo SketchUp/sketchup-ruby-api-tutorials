@@ -1,4 +1,4 @@
-# Copyright 2016 Trimble Navigation Limited
+# Copyright 2016 Trimble Inc
 # Licensed under the MIT license
 
 module Examples
