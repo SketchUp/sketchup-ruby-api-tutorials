@@ -176,6 +176,7 @@ module Examples
       def draw_sphere(view, points)
         origin, tangent = points
         x_axis = origin.vector_to(tangent)
+        # Remember to take into account that the input points could be the same.
         return unless x_axis.valid?
         radius = x_axis.length
         loops = sphere_preview_points(origin, x_axis, radius, @num_segments)
@@ -211,6 +212,9 @@ module Examples
         reset_tool
       end
 
+      # Creates a boundingbox covering the sphere to be drawn. Instead of
+      # feeding it all the points, just compute the extremes in XYZ directions
+      # from the sphere center.
       def sphere_bounds
         bb = Geom::BoundingBox.new
         if @picked_first_ip.valid? && @mouse_ip.valid?
