@@ -88,13 +88,13 @@ module Examples
       # Normally you would use `UI.create_cursor(cursor_path, 0, 0)` instead
       # with your own custom cursor bitmap:
       #
-      #   CURSOR_PENCIL = UI.create_cursor(cursor_path, 0, 0)
-      CURSOR_PENCIL = 632
+      #   CURSOR_SPHERE = UI.create_cursor(cursor_path, 0, 0)
+      CURSOR_CIRCLE = 1457
       def onSetCursor
         # Note that `onSetCursor` is called frequently so you should not do much
         # work here. At most you switch between different cursor representing
         # the state of the tool.
-        UI.set_cursor(CURSOR_PENCIL)
+        UI.set_cursor(CURSOR_CIRCLE)
       end
 
       def draw(view)
