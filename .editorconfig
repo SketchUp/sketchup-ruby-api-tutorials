@@ -1,0 +1,16 @@
+# EditorConfig is awesome: http://EditorConfig.org
+
+# If your editor doesn't support editor configs out of the box, there usually
+# exists an extension for it. Short of that, configure your editor accordingly.
+
+root = true
+
+[*]
+indent_style = space
+indent_size = 2
+insert_final_newline = true
+trim_trailing_whitespace = true
+max_line_length = 80
+
+[*.{js,rb}]
+charset = utf-8
