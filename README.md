@@ -34,7 +34,7 @@ code examples that help improve their SketchUp extensions.
 If you clone this repository to your computer you can load the files directly
 from where you cloned them using a proxy loading script:
 
-```
+```ruby
 # Create a file in your Plugins folder with these lines:
 $LOAD_PATH << 'some\path\to\sketchup-ruby-api-tutorials'
 require 'load_tutorials.rb'
