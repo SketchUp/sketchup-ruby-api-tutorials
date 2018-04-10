@@ -10,15 +10,17 @@ module Examples
       # Performing a license check before executing the extension's commands.
       # The extension id is kept as a local variable as constants and
       # class/instance variables are too easy to tamper with.
-      ext_id = "6cce9800-40b0-4dd9-9671-8d55a05ae1e8"
+      ext_id = '6cce9800-40b0-4dd9-9671-8d55a05ae1e8'
       license = Sketchup::Licensing.get_extension_license(ext_id)
       unless license.licensed?
-        UI::messagebox("Could not obtain a valid license.")
+        UI::messagebox('Could not obtain a valid license.')
         return
       end
+
       # If license is ok then normal execution will proceed:
       model = Sketchup.active_model
       model.start_operation('Create Cube', true)
+      group = model.active_model.add_group
       entities = group.entities
       points = [
         Geom::Point3d.new(0,   0,   0),
@@ -46,7 +48,7 @@ module Examples
     # Fetching a license here so that it will be checked by SketchUp during
     # startup. This will include the extension in the dialog that warns about
     # missing licenses.
-    ext_id = "6cce9800-40b0-4dd9-9671-8d55a05ae1e8"
+    ext_id = '6cce9800-40b0-4dd9-9671-8d55a05ae1e8'
     ext_lic = Sketchup::Licensing.get_extension_license(ext_id)
 
   end # module HelloLicense
