@@ -17,7 +17,7 @@ available 3 different ways. You can:
    follow along by building the same extension yourself. Use these examples to
    help learn better SketchUp API usage.
 2. Fork the [fully commented examples from Github](https://github.com/SketchUp/sketchup-ruby-api-tutorials/tree/master/tutorials).
-   Get the code right on your machine, will all the comments for easy access.
+   Get the code right on your machine, with all the comments for easy access.
    Use it as a quick reference to comments, code snippets, etc.
 3. Fork the [non-commented version from Github](https://github.com/SketchUp/sketchup-ruby-api-tutorials/tree/master/examples).
    This is handy for people who just want to look at the code quickly and move
