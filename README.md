@@ -42,8 +42,10 @@ require 'load_tutorials.rb'
 
 That snippet will take care of loading the examples and tutorials.
 
-If you are working on you own examples you want to contribute back via a Pull
-Request you can use `Examples.reload` while you work to reload all the files.
+If you have examples of your own that you think might be useful open a Pull
+Request. Follow the pattern of the existing examples.
+
+You can use `Examples.reload` while you work to reload all the files.
 
 # Development Guides
 
