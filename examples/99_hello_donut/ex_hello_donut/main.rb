@@ -30,7 +30,7 @@ module Examples
 
     unless file_loaded?(__FILE__)
       menu = UI.menu('Plugins')
-      menu.add_item('Create Donut Example') {
+      menu.add_item('99 Create Donut Example') {
         self.create_donut
       }
       file_loaded(__FILE__)

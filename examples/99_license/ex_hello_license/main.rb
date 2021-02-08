@@ -39,7 +39,7 @@ module Examples
       # the commands themselves to have a license check. As seen in the example
       # above, it's recommended to provide a message back to the user.
       menu = UI.menu('Plugins')
-      menu.add_item('Create Cube Example') {
+      menu.add_item('99 Create Cube Example') {
         self.create_cube
       }
       file_loaded(__FILE__)
