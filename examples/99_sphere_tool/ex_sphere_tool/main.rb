@@ -282,7 +282,7 @@ module Examples
 
     unless file_loaded?(__FILE__)
       menu = UI.menu('Plugins')
-      menu.add_item('Sphere Tool Example') {
+      menu.add_item('99 Sphere Tool Example') {
         self.activate_sphere_tool
       }
       file_loaded(__FILE__)
