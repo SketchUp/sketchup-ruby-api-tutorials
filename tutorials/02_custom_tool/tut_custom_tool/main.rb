@@ -33,7 +33,7 @@ module Examples
       # This is called when the user switches to a different tool. It's
       # recommended to always call view.invalidate in order to make sure we
       # clear out any custom drawings done to the viewport. Otherwise these
-      # drawings might linger around for a moment confusing the user.
+      # drawings might linger around for a moment, confusing the user.
       def deactivate(view)
         view.invalidate
       end
