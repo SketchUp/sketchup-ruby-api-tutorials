@@ -85,7 +85,7 @@ module Examples
       # We add the menu item directly to the root of the menu in this example.
       # But if you plan to add multiple items per extension we recommend you
       # group them into a sub-menu in order to keep things organized.
-      menu.add_item('Create Cube Example') {
+      menu.add_item('01 Create Cube Example') {
         self.create_cube
       }
 

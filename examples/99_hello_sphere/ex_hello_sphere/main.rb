@@ -28,7 +28,7 @@ module Examples
 
     unless file_loaded?(__FILE__)
       menu = UI.menu('Plugins')
-      menu.add_item('Create Sphere Example') {
+      menu.add_item('99 Create Sphere Example') {
         self.create_sphere
       }
       file_loaded(__FILE__)

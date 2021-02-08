@@ -134,7 +134,7 @@ module Examples
 
     unless file_loaded?(__FILE__)
       menu = UI.menu('Plugins')
-      menu.add_item('Custom Tool Example') {
+      menu.add_item('02 Custom Tool Example') {
         self.activate_line_tool
       }
       file_loaded(__FILE__)
