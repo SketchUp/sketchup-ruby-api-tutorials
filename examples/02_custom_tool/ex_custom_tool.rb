@@ -2,7 +2,7 @@
 # Licensed under the MIT license
 
 # This demonstrate how to create a custom Ruby tool that lets the user pick
-# points in the model to create a cube.
+# points in the model to draw edges.
 
 require 'sketchup.rb'
 require 'extensions.rb'
