@@ -1,16 +1,25 @@
-# Copyright 2016 Trimble Inc
+# Copyright 2021 Trimble Inc
 # Licensed under the MIT license
 
 require 'sketchup.rb'
 
 module Examples
-  module CustomTool
+  module PressDragReleaseTool
 
     class LineTool
+
+      # Threshold in logical screen pixels for when the mouse is considered to
+      # be dragged.
+      DRAG_THRESHOLD = 10
 
       def activate
         @mouse_ip = Sketchup::InputPoint.new
         @picked_first_ip = Sketchup::InputPoint.new
+
+        # Track where mouse was pressed down so we can compare its position when
+        # later released.
+        @mouse_down = ORIGIN
+
         update_ui
       end
 
@@ -35,6 +44,11 @@ module Examples
       def onMouseMove(flags, x, y, view)
         if picked_first_point?
           @mouse_ip.pick(view, x, y, @picked_first_ip)
+
+          # Print the length of the previewed line to the measurement bar.
+          # Printing a Length object (as opposed to a float) automatically
+          # formats it according to the model units.
+          Sketchup.vcb_value = @mouse_ip.position.distance(@picked_first_ip.position)
         else
           @mouse_ip.pick(view, x, y)
         end
@@ -43,6 +57,9 @@ module Examples
       end
 
       def onLButtonDown(flags, x, y, view)
+        # Track where in screen space mouse is pressed down.
+        @mouse_down = Geom::Point3d.new(x, y)
+
         if picked_first_point? && create_edge > 0
           # When the user have picked a start point and then picks another point
           # we create an edge and try to create new faces from that edge.
@@ -58,12 +75,28 @@ module Examples
         view.invalidate
       end
 
+      def onLButtonUp(flags, x, y, view)
+        if @mouse_down.distance([x, y]) > DRAG_THRESHOLD
+          # Mouse is released far enough away from where it was pressed to be
+          # considered to be dragged there.
+
+          create_edge
+
+          # When drag-drawing, it feels odd to chain line drawing and we
+          # consistently reset the tool instead.
+          # You can try only calling this method if create_edge returns a
+          # positive number, to experience the other behavior.
+          reset_tool
+        end
+      end
+
       # Here we have hard coded a special ID for the pencil cursor in SketchUp.
       # Normally you would use `UI.create_cursor(cursor_path, 0, 0)` instead
       # with your own custom cursor bitmap:
       #
       #   CURSOR_PENCIL = UI.create_cursor(cursor_path, 0, 0)
       CURSOR_PENCIL = 632
+
       def onSetCursor
         # Note that `onSetCursor` is called frequently so you should not do much
         # work here. At most you switch between different cursor representing
@@ -90,6 +123,8 @@ module Examples
         else
           Sketchup.status_text = 'Select start point.'
         end
+
+        Sketchup.vcb_label = 'Length'
       end
 
       def reset_tool
@@ -137,11 +172,11 @@ module Examples
 
     unless file_loaded?(__FILE__)
       menu = UI.menu('Plugins')
-      menu.add_item('02 Custom Tool Example') {
+      menu.add_item('03 Press+Drag+Release Tool Example') {
         self.activate_line_tool
       }
       file_loaded(__FILE__)
     end
 
-  end # module CustomTool
-end # module Examples
+  end
+end

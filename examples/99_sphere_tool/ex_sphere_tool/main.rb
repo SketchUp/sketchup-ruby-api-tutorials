@@ -24,6 +24,10 @@ module Examples
         view.invalidate
       end
 
+      def suspend(view)
+        view.invalidate
+      end
+
       def onCancel(reason, view)
         reset_tool
         view.invalidate
@@ -216,23 +220,24 @@ module Examples
       # feeding it all the points, just compute the extremes in XYZ directions
       # from the sphere center.
       def sphere_bounds
-        bb = Geom::BoundingBox.new
+        bounds = Geom::BoundingBox.new
         if @picked_first_ip.valid? && @mouse_ip.valid?
           origin = @picked_first_ip.position
           x_axis = origin.vector_to(@mouse_ip)
-          return bb unless x_axis.valid?
+          return bounds unless x_axis.valid?
+
           y_axis = x_axis.axes.x
           y_axis.length = x_axis.length
           z_axis = x_axis.axes.y
           z_axis.length = x_axis.length
-          bb.add(origin.offset(x_axis))
-          bb.add(origin.offset(x_axis.reverse))
-          bb.add(origin.offset(y_axis))
-          bb.add(origin.offset(y_axis.reverse))
-          bb.add(origin.offset(z_axis))
-          bb.add(origin.offset(z_axis.reverse))
+          bounds.add(origin.offset(x_axis))
+          bounds.add(origin.offset(x_axis.reverse))
+          bounds.add(origin.offset(y_axis))
+          bounds.add(origin.offset(y_axis.reverse))
+          bounds.add(origin.offset(z_axis))
+          bounds.add(origin.offset(z_axis.reverse))
         end
-        bb
+        bounds
       end
 
       def sphere_preview_points(origin, x_axis, radius, segments = 24)

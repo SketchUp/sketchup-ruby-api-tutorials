@@ -47,6 +47,10 @@ module Examples
         view.invalidate
       end
 
+      def suspend(view)
+        view.invalidate
+      end
+
       # Tools can be interrupted for various reasons. In this example tool we
       # simply reset it regardless, but if you need finer granularity you can
       # check the reason code.
@@ -82,20 +86,17 @@ module Examples
       # When the user clicks in the viewport we want to create edges based on
       # the input points we have collected.
       def onLButtonDown(flags, x, y, view)
-        # When the user has picked a start point and then picks another point
-        # we create an edge and try to create new faces from that edge.
-        num_new_faces = 0
-        if picked_first_point?
-          num_new_faces = create_edge
-        end
-        # Like the native tool we reset the tool if it created new faces.
-        if num_new_faces > 0
+        if picked_first_point? && create_edge > 0
+          # When the user have picked a start point and then picks another point
+          # we create an edge and try to create new faces from that edge.
+          # Like the native tool we reset the tool if it created new faces.
           reset_tool
         else
           # If no face was created we let the user chain new edges to the last
           # input point.
           @picked_first_ip.copy!(@mouse_ip)
         end
+
         # As always we want to update the statusbar text and view.
         update_ui
         view.invalidate
@@ -128,9 +129,9 @@ module Examples
       # In order to make sure everything you draw is visible you must return
       # a boundingbox here which defines the 3d model space you draw to.
       def getExtents
-        bb = Geom::BoundingBox.new
-        bb.add(picked_points)
-        bb
+        bounds = Geom::BoundingBox.new
+        bounds.add(picked_points)
+        bounds
       end
 
       # In this example we put all the logic in the tool class itself. For more
@@ -173,12 +174,14 @@ module Examples
         view.draw(GL_LINES, points)
       end
 
+      # Returns the number of created faces.
       def create_edge
         model = Sketchup.active_model
         model.start_operation('Edge', true)
         edge = model.active_entities.add_line(picked_points)
-        num_faces = edge.find_faces
+        num_faces = edge.find_faces || 0 # API returns nil instead of 0.
         model.commit_operation
+
         num_faces
       end
 
