@@ -129,8 +129,6 @@ module Examples
         end
 
         view.invalidate
-      rescue ArgumentError
-        Ui.messagebox('Invalid length')
       end
 
       def draw(view)
