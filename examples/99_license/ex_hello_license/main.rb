@@ -20,7 +20,7 @@ module Examples
       # If license is ok then normal execution will proceed:
       model = Sketchup.active_model
       model.start_operation('Create Cube', true)
-      group = model.active_model.add_group
+      group = model.entities.add_group
       entities = group.entities
       points = [
         Geom::Point3d.new(0,   0,   0),
